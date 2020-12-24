@@ -20,4 +20,6 @@ public interface UserDao {
     public User getUserByUsername(String name);
 
     public Role getRoleByName(String role);
+
+    public User getUserByEmail(String email);
 }

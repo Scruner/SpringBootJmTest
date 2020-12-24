@@ -32,7 +32,7 @@ public class AdminController {
     public String showAddUser(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        return "user_ed";
+        return "user_add";
     }
 
     @PostMapping(value = "/add")

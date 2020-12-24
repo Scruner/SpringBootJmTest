@@ -56,4 +56,11 @@ public class UserDaoImpl implements UserDao {
         typedQuery.setParameter("role", role);
         return typedQuery.getSingleResult();
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        TypedQuery<User> typedQuery = entityManager.createQuery("FROM User u WHERE u.email=:email", User.class);
+        typedQuery.setParameter("email", email);
+        return typedQuery.getSingleResult();
+    }
 }

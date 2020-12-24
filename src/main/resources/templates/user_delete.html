@@ -27,6 +27,11 @@
             <td>:</td>
             <td th:utext="${user.age}">...</td>
         </tr>
+        <tr>
+            <td>Email</td>
+            <td>:</td>
+            <td th:utext="${user.email}">...</td>
+        </tr>
     </table>
     <br/><br/>
     <form th:method="POST" th:action="@{/admin/delete/{Id}(Id=${user.id})}">

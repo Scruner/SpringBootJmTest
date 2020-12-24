@@ -25,12 +25,14 @@ public class User implements UserDetails {
     @Column(name = "age")
     private int age;
 
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "password")
     private String password;
 
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REMOVE,
-            CascadeType.REFRESH, CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -39,11 +41,13 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String surname, String password, int age, Set<Role> roles) {
+    public User(String name, String surname, String password, int age, String email,
+                Set<Role> roles) {
         this.name = name;
         this.surname = surname;
         this.password = password;
         this.age = age;
+        this.email = email;
         this.roles = roles;
     }
 
@@ -81,6 +85,14 @@ public class User implements UserDetails {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Set<Role> getRoles() {
@@ -133,6 +145,7 @@ public class User implements UserDetails {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", age=" + age +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
