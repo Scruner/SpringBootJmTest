@@ -1,6 +1,8 @@
 package ru.vdv.jm.spring_boot_jm.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.logging.LoggersEndpoint;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +10,7 @@ import ru.vdv.jm.spring_boot_jm.models.Role;
 import ru.vdv.jm.spring_boot_jm.models.User;
 import ru.vdv.jm.spring_boot_jm.service.UserService;
 
-import java.util.HashSet;
+import java.security.Principal;
 import java.util.Set;
 
 @Controller
@@ -20,10 +22,13 @@ public class AdminController {
     @Autowired
     public AdminController(UserService userService) {
         this.userService = userService;
+
     }
 
     @GetMapping
     public String getUsers(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
         model.addAttribute("users", userService.getAllUsers());
         return "user_list";
     }
@@ -37,19 +42,9 @@ public class AdminController {
 
     @PostMapping(value = "/add")
     public String addUser(@ModelAttribute("user") User user,
-                          @RequestParam(required = false) boolean adminCheck,
-                          @RequestParam(required = false) boolean userCheck) {
-        Set<Role> roleList = new HashSet<>();
-        if (adminCheck) {
-            Role role = userService.getRoleByName("ADMIN");
-            roleList.add(role);
-        }
-        if (userCheck) {
-            Role role1 = userService.getRoleByName("USER");
-            roleList.add(role1);
-        }
-        user.setRoles(roleList);
-        userService.addUser(user);
+                          @RequestParam String[] role) {
+
+        userService.addUser(user, role);
         return "redirect:/admin";
     }
 
@@ -63,20 +58,9 @@ public class AdminController {
     @PostMapping(value = "/edit/{id}")
     public String updateUser(@PathVariable int id,
                              @ModelAttribute("user") User user,
-                             @RequestParam(required = false) boolean adminCheck,
-                             @RequestParam(required = false) boolean userCheck) {
-        user.setId(id);
-        Set<Role> roleList = new HashSet<>();
-        if (adminCheck) {
-            Role role = new Role(1L, "ADMIN");
-            roleList.add(role);
-        }
-        if (userCheck) {
-            Role role1 = new Role(2L, "USER");
-            roleList.add(role1);
-        }
-        user.setRoles(roleList);
-        userService.updateUser(user);
+                             @RequestParam String[] role) {
+
+        userService.updateUser(user, role);
         return "redirect:/admin";
     }
 

@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.vdv.jm.spring_boot_jm.models.User;
+import ru.vdv.jm.spring_boot_jm.service.UserService;
 
 @Controller
 @RequestMapping("/user")
@@ -17,6 +18,6 @@ public class UserController {
         User user = (User) authentication.getPrincipal();
         model.addAttribute("user", user);
 
-        return "user";
+        return "user_list";
     }
 }

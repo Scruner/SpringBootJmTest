@@ -4,19 +4,23 @@ import ru.vdv.jm.spring_boot_jm.models.Role;
 import ru.vdv.jm.spring_boot_jm.models.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
 
-    public List<User> getAllUsers();
+    List<User> getAllUsers();
 
-    public void addUser(User user);
+    void addUser(User user, String[] role);
 
-    public void deleteUser(int id);
+    void deleteUser(int id);
 
-    public void updateUser(User user);
+    void updateUser(User user, String[] role);
 
-    public User getUserById(int id);
+    User getUserById(int id);
 
-    public Role getRoleByName(String role);
+    Role getRoleByName(String role);
 
-}
+    User getUserByEmail(String email);
+
+    }
+

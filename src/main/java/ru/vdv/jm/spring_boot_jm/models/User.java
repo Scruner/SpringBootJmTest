@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -99,9 +101,16 @@ public class User implements UserDetails {
         return roles;
     }
 
+    public Set<Role> getRoles(String s) {
+
+        return roles;
+    }
+
+
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 
 
     @Override
