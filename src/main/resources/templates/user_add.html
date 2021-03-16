@@ -14,8 +14,15 @@
 </head>
 <body>
 <div class="container-fluid navbar bg-dark">
-    <a class="navbar-brand text-light font-weight-bold">admin@mail.ru
-        <span class="text-light text-left font-weight-normal">with roles: ADMIN USER</span></a>
+    <div th:object="${user}">
+    <span class="navbar-brand text-white navbar-brand text-light font-weight-bold" style="font-weight: bold;
+        margin:0">admin@mail.ru</span>
+        <span class="navbar-brand text-white text-light text-left font-weight-normal" style="font-weight: lighter;
+        margin:0"> with roles:</span>
+        <span class="navbar-brand text-white text-light text-left font-weight-normal" style="font-weight: lighter;
+        margin:0">ADMIN USER</span>
+    </div>
+
     <a href="/logout" class="navbar-brand text-muted">Logout</a>
 </div>
 
@@ -26,10 +33,11 @@
             <br>
 
             <!-- List group -->
-            <div class="list-group list-group-flush" id="myList" role="tablist">
-                <a class="list-group-item list-group-item-action active rounded" data-toggle="list" href="/admin"
-                   role="tab">Admin</a>
-                <a class="list-group-item list-group-item-action rounded" data-toggle="list" href="/user" role="tab">User</a>
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-admin-tab" data-toggle="tab" href="/admin" role="tab"
+                   aria-controls="v-pills-admin" aria-selected="true">Admin</a>
+                <a class="nav-link" id="v-pills-user-tab" data-toggle="tab" href="/user" role="tab"
+                   aria-controls="v-pills-user" aria-selected="false">User</a>
             </div>
 
             <!-- Tab panes -->
@@ -80,94 +88,94 @@
                     <div class="col border" style="background-color: white">
                         <br>
                         <form method="post" th:action="@{/admin/add}">
-                        <div class="container">
+                            <div class="container">
 
-                            <div class="row justify-content-center align-items-center form-row text-center">
-                                <div class="col-4">
+                                <div class="row justify-content-center align-items-center form-row text-center">
+                                    <div class="col-4">
 
-                                    <form role="form">
+                                        <form role="form">
 
-                                        <div class="form-group text-center">
-                                            <a class="text" for="name">
-                                                <a class="text font-weight-bold
+                                            <div class="form-group text-center">
+                                                <a class="text" for="name">
+                                                    <a class="text font-weight-bold
                                                                             text-dark">
-                                                    First name</a>
-                                            </a>
-                                            <input type="name"
-                                                   class="form-control"
-                                                   id="name"
-                                                   name="name"
-                                                   placeholder="First name">
-                                        </div>
-                                        <div class="form-group text-center">
-                                            <a class="text" for="surname">
-                                                <a class="text font-weight-bold
+                                                        First name</a>
+                                                </a>
+                                                <input type="name"
+                                                       class="form-control"
+                                                       id="name"
+                                                       name="name"
+                                                       placeholder="First name">
+                                            </div>
+                                            <div class="form-group text-center">
+                                                <a class="text" for="surname">
+                                                    <a class="text font-weight-bold
                                                                             text-dark">
-                                                    Last name</a>
-                                            </a>
-                                            <input type="surname"
-                                                   class="form-control"
-                                                   id="surname"
-                                                   name="surname"
-                                                   placeholder="Last name">
-                                        </div>
-                                        <div class="form-group text-center">
-                                            <a class="text" for="age">
-                                                <a class="text font-weight-bold
+                                                        Last name</a>
+                                                </a>
+                                                <input type="surname"
+                                                       class="form-control"
+                                                       id="surname"
+                                                       name="surname"
+                                                       placeholder="Last name">
+                                            </div>
+                                            <div class="form-group text-center">
+                                                <a class="text" for="age">
+                                                    <a class="text font-weight-bold
                                                                             text-dark">
-                                                    Age</a>
-                                            </a>
-                                            <input type="number"
-                                                   class="form-control"
-                                                   id="age"
-                                                   name="age"
-                                                   placeholder="Age">
-                                        </div>
-                                        <div class="form-group text-center">
-                                            <a class="text" for="email">
-                                                <a class="text font-weight-bold
+                                                        Age</a>
+                                                </a>
+                                                <input type="number"
+                                                       class="form-control"
+                                                       id="age"
+                                                       name="age"
+                                                       placeholder="Age">
+                                            </div>
+                                            <div class="form-group text-center">
+                                                <a class="text" for="email">
+                                                    <a class="text font-weight-bold
                                                                             text-dark">
-                                                    Email</a>
-                                            </a>
-                                            <input type="email"
-                                                   class="form-control"
-                                                   id="email"
-                                                   name="email"
-                                                   placeholder="Email">
-                                        </div>
-                                        <div class="form-group text-center">
-                                            <a class="text" for="password">
-                                                <a class="text font-weight-bold
+                                                        Email</a>
+                                                </a>
+                                                <input type="email"
+                                                       class="form-control"
+                                                       id="email"
+                                                       name="email"
+                                                       placeholder="Email">
+                                            </div>
+                                            <div class="form-group text-center">
+                                                <a class="text" for="password">
+                                                    <a class="text font-weight-bold
                                                                             text-dark">
-                                                    Password</a>
-                                            </a>
-                                            <input type="password"
-                                                   class="form-control"
-                                                   id="password"
-                                                   name="password"
-                                                   placeholder="Password">
-                                        </div>
-                                        <div class="form-group text-center">
-                                            <a class="text" for="role">
-                                                <a class="text font-weight-bold
+                                                        Password</a>
+                                                </a>
+                                                <input type="password"
+                                                       class="form-control"
+                                                       id="password"
+                                                       name="password"
+                                                       placeholder="Password">
+                                            </div>
+                                            <div class="form-group text-center">
+                                                <a class="text" for="role">
+                                                    <a class="text font-weight-bold
                                                                             text-dark">
-                                                    Role</a>
-                                            </a>
-                                            <select multiple size="2" id="roleSelects"
-                                                    name="role"
-                                                    class="form-control">
-                                                <option value="ADMIN">ADMIN</option>
-                                                <option value="USER">USER</option>
-                                            </select>
-                                        </div>
-                                    </form>
-                                    <a href="/admin/add">
-                                        <button class="btn btn-success">Add new user</button>
-                                    </a>
+                                                        Role</a>
+                                                </a>
+                                                <select multiple size="2" id="roleSelects"
+                                                        name="role"
+                                                        class="form-control">
+                                                    <option value="ADMIN">ADMIN</option>
+                                                    <option value="USER">USER</option>
+                                                </select>
+                                            </div>
+                                        </form>
+                                        <a href="/admin/add">
+                                            <button class="btn btn-success">Add new user</button>
+                                        </a>
+                                    </div>
                                 </div>
+                                <br>
                             </div>
-                            <br>
-                        </div>
                         </form>
                     </div>
                 </div>

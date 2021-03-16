@@ -18,6 +18,6 @@ public class UserController {
         User user = (User) authentication.getPrincipal();
         model.addAttribute("user", user);
 
-        return "user_list";
+        return "user";
     }
 }

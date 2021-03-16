@@ -2,6 +2,7 @@ package ru.vdv.jm.spring_boot_jm.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.logging.LoggersEndpoint;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -82,6 +83,13 @@ public class AdminController {
     public String deleteUserById(@PathVariable int id) {
         userService.deleteUser(id);
         return "redirect:/admin";
+    }
+    @GetMapping("/user")
+    public String getUser(Model model, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        model.addAttribute("user", user);
+
+        return "user";
     }
 }
 

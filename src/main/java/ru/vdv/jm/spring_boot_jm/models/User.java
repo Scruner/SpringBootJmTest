@@ -4,8 +4,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -102,6 +104,10 @@ public class User implements UserDetails {
     }
 
     public Set<Role> getRoles(String s) {
+        //String.join(",", (CharSequence) roles).replaceAll("[\\[\\]]$", "");
+
+//        String.join("and", (CharSequence) roles);
+//        getRoles().toString().replaceAll("^\\[|\\]$", "");
 
         return roles;
     }
@@ -110,7 +116,6 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
 
 
     @Override
