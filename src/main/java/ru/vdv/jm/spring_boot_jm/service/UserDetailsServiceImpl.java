@@ -37,4 +37,3 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return false;
     }
 }
-//  "^((\\w|[-+])+(\\.[\\w-]+)*@[\\w-]+(\\.[\\d\\p{Alpha)}+)*(\\.\\p{Alpha}{2,})*)*)"

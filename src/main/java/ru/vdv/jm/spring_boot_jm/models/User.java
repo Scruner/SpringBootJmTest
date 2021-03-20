@@ -4,12 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
-import java.util.StringJoiner;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -45,8 +41,9 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String surname, String password, int age, String email,
-                Set<Role> roles) {
+    public User(
+            String name, String surname, String password, int age, String email,
+            Set<Role> roles) {
         this.name = name;
         this.surname = surname;
         this.password = password;
@@ -104,19 +101,12 @@ public class User implements UserDetails {
     }
 
     public Set<Role> getRoles(String s) {
-        //String.join(",", (CharSequence) roles).replaceAll("[\\[\\]]$", "");
-
-//        String.join("and", (CharSequence) roles);
-//        getRoles().toString().replaceAll("^\\[|\\]$", "");
-
         return roles;
     }
-
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

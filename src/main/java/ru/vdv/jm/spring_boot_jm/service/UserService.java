@@ -4,7 +4,6 @@ import ru.vdv.jm.spring_boot_jm.models.Role;
 import ru.vdv.jm.spring_boot_jm.models.User;
 
 import java.util.List;
-import java.util.Set;
 
 public interface UserService {
 
@@ -22,5 +21,5 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
-    }
+}
 

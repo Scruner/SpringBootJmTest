@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.vdv.jm.spring_boot_jm.models.User;
-import ru.vdv.jm.spring_boot_jm.service.UserService;
 
 @Controller
 @RequestMapping("/user")

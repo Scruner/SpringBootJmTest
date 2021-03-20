@@ -1,0 +1,59 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fragments navbar</title>
+</head>
+<body>
+
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="navbar">
+
+    <div class="container-fluid navbar bg-dark">
+
+        <div th:object="${user}">
+        <span class="navbar-brand text-white navbar-brand text-light font-weight-bold" style="font-weight: bold;
+        margin:0" th:text="${user.getEmail()}">  </span>
+            <span class="navbar-brand text-white text-light text-left font-weight-normal" style="font-weight: lighter;
+        margin:0"> with roles:</span>
+            <span class="navbar-brand text-white text-light text-left font-weight-normal" style="font-weight: lighter;
+        margin:3px" th:each="role : ${user.getRoles()}"
+                  th:text="${role.getRole() + ' '}"></span>
+        </div>
+        <a href="/logout" class="navbar-brand text-muted">Logout</a>
+    </div>
+
+</th:block>
+
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="sidebar">
+
+    <div class="col-2 col px-md-0">
+        <br>
+        <div class="nav flex-column nav-pills" id="sidebarUserTable" role="tablist" aria-orientation="vertical">
+
+            <a class="nav-link active" id="link-admin-tab" data-bs-toggle="pill" href="/admin" role="tab"
+               aria-controls="v-pills-admin" aria-selected="true">Admin</a>
+            <a class="nav-link" id="link-user-tab" data-bs-toggle="pill" href="/user" role="tab"
+               aria-controls="v-pills-user" aria-selected="false">User</a>
+        </div>
+    </div>
+</th:block>
+
+<th:block xmlns:th="http://www.thymeleaf.org" th:fragment="sidebarForUser">
+
+    <div class="col-2 col px-md-0">
+        <br>
+        <div class="nav flex-column nav-pills" id="sidebarNewUser" role="tablist" aria-orientation="vertical">
+
+            <sec:authorize access="hasRole('ADMIN')">
+                <a class="nav-link" id="linkNewUser-admin-tab" data-bs-toggle="pill" href="/admin" role="tab"
+                   aria-controls="v-pills-admin" aria-selected="true">Admin</a>
+            </sec:authorize>
+
+            <a class="nav-link active" id="linkNewUser-user-tab" data-bs-toggle="pill" href="/user" role="tab"
+               aria-controls="v-pills-user" aria-selected="false">User</a>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

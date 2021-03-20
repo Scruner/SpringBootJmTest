@@ -26,7 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -34,47 +35,66 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         authenticationProvider.setUserDetailsService(userDetailsService);
-            return authenticationProvider;
+        return authenticationProvider;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                // указываем страницу с формой логина
+                //указываем страницу с формой логина
                 .loginPage("/login")
+
                 //указываем логику обработки при логине
                 .successHandler(new LoginSuccessHandler())
-                // указываем action с формы логина
+
+                //указываем action с формы логина
                 .loginProcessingUrl("/login")
-                // Указываем параметры логина и пароля с формы логина
+
+                //Указываем параметры логина и пароля с формы логина
                 .usernameParameter("username")
                 .passwordParameter("password")
-                // даем доступ к форме логина всем
+
+                //даем доступ к форме логина всем
                 .permitAll();
         http.logout()
-                // разрешаем делать логаут всем
+
+                //разрешаем делать логаут всем
                 .permitAll()
-                // указываем URL логаута
+
+                //указываем URL логаута
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                // указываем URL при удачном логауте
+
+                //указываем URL при удачном логауте
                 .logoutSuccessUrl("/login")
-                //выклчаем кроссдоменную секьюрность (на этапе обучения неважна)
-                .and().csrf().disable();
+
+                //выключаем кроссдоменную секьюрность (на этапе обучения неважна)
+                .and()
+                .csrf()
+                .disable();
 
         http
-                .formLogin().successHandler(loginSuccessHandler);
+                .formLogin()
+                .successHandler(loginSuccessHandler);
 
         http
                 // делаем страницу регистрации недоступной для авторизированных пользователей
+                //то есть запрашиваем авторизацию для определённых url
                 .authorizeRequests()
-                // защищенные URL
+
+                // защищенные URL. То есть даём разрешение для конкретного url, конкретным ролям
                 // .antMatchers(Http.Method.GET, "/user").hasAnyRole(Role.ADMIN.name(), Role.USER.name())
-                .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/user").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers("/admin/**")
+                .hasAuthority("ADMIN")
+                .antMatchers("/user")
+                .hasAnyAuthority("USER", "ADMIN")
+
                 //страницы аутентификаци доступна всем
-                .antMatchers("/login").anonymous()
-                .and().
-                formLogin().permitAll();
+                .antMatchers("/login")
+                .anonymous()
+                .and()
+                .
+                        formLogin()
+                .permitAll();
     }
 
     @Bean

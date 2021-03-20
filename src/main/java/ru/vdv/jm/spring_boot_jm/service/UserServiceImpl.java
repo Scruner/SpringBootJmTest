@@ -10,7 +10,6 @@ import ru.vdv.jm.spring_boot_jm.models.User;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,9 +33,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(User user, String[] role) {
-        //берём пароль, шифруем его и сохраняем его пользователю
+
+        //берём пароль, шифруем его и сохраняем пользователю
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.stream(role).map(this::getRoleByName).collect(Collectors.toSet()));
+        user.setRoles(Arrays.stream(role)
+                .map(this::getRoleByName)
+                .collect(Collectors.toSet()));
         userDao.addUser(user);
     }
 
@@ -48,7 +50,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user, String[] role) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.stream(role).map(this::getRoleByName).collect(Collectors.toSet()));
+        user.setRoles(Arrays.stream(role)
+                .map(this::getRoleByName)
+                .collect(Collectors.toSet()));
         userDao.updateUser(user);
     }
 
@@ -66,5 +70,4 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String email) {
         return userDao.getUserByEmail(email);
     }
-
 }
