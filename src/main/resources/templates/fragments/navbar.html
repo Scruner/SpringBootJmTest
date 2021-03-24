@@ -44,7 +44,7 @@
         <br>
         <div class="nav flex-column nav-pills" id="sidebarNewUser" role="tablist" aria-orientation="vertical">
 
-                <a sec:authorize="hasRole('ADMIN')" class="nav-link" id="linkNewUser-admin-tab" data-bs-toggle="pill" href="/admin" role="tab"
+                <a sec:authorize="hasAuthority('ADMIN')" class="nav-link" id="linkNewUser-admin-tab" data-bs-toggle="pill" href="/admin" role="tab"
                    aria-controls="v-pills-admin" aria-selected="true">Admin</a>
 
             <a class="nav-link active" id="linkNewUser-user-tab" data-bs-toggle="pill" href="/user" role="tab"
