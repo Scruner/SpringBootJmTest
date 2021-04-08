@@ -11,14 +11,13 @@
 
     <div class="container-fluid navbar bg-dark">
 
-        <div th:object="${user}">
-        <span class="navbar-brand text-white navbar-brand text-light font-weight-bold" style="font-weight: bold;
-        margin:0" th:text="${user.getEmail()}">  </span>
+        <div>
+        <span class="navbar-brand text-white text-light font-weight-bold" style="font-weight: bold;
+        margin:0" id="principalEmail"></span>
             <span class="navbar-brand text-white text-light text-left font-weight-normal" style="font-weight: lighter;
         margin:0"> with roles:</span>
             <span class="navbar-brand text-white text-light text-left font-weight-normal" style="font-weight: lighter;
-        margin:3px" th:each="role : ${user.getRoles()}"
-                  th:text="${role.getRole() + ' '}"></span>
+        margin:3px" id="roles"></span>
         </div>
         <a href="/logout" class="navbar-brand text-muted">Logout</a>
     </div>
@@ -29,12 +28,12 @@
 
     <div class="col-2 col px-md-0">
         <br>
-        <div class="nav flex-column nav-pills" id="sidebarUserTable" role="tablist" aria-orientation="vertical">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
-            <a class="nav-link active" id="link-admin-tab" data-bs-toggle="pill" href="/admin" role="tab"
-               aria-controls="v-pills-admin" aria-selected="true">Admin</a>
-            <a class="nav-link" id="link-user-tab" data-bs-toggle="pill" href="/user" role="tab"
-               aria-controls="v-pills-user" aria-selected="false">User</a>
+            <a sec:authorize="hasAuthority('ADMIN')" class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" href="/admin" role="tab"
+               aria-controls="v-pills-home" aria-selected="true">Admin</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" href="/user" role="tab"
+               aria-controls="v-pills-profile" aria-selected="false">User</a>
         </div>
     </div>
 </th:block>
@@ -43,14 +42,13 @@
 
     <div class="col-2 col px-md-0">
         <br>
-        <div class="nav flex-column nav-pills" id="sidebarNewUser" role="tablist" aria-orientation="vertical">
+        <div class="nav flex-column nav-pills" id="v-pills-foruser-tab" role="tablist" aria-orientation="vertical">
 
-            <sec:authorize access="hasRole('ADMIN')">
-                <a class="nav-link" id="linkNewUser-admin-tab" data-bs-toggle="pill" href="/admin" role="tab"
-                   aria-controls="v-pills-admin" aria-selected="true">Admin</a>
-            </sec:authorize>
+            <a sec:authorize="hasAuthority('ADMIN')" class="nav-link" id="linkNewUser-admin-tab"
+               data-bs-toggle="pill" href="/admin" role="tab"
+               aria-controls="v-pills-admin" aria-selected="true">Admin</a>
 
-            <a class="nav-link active" id="linkNewUser-user-tab" data-bs-toggle="pill" href="/user" role="tab"
+            <a class="nav-link active" id="v-pills-user-tab" data-bs-toggle="pill" href="/admin/user" role="tab"
                aria-controls="v-pills-user" aria-selected="false">User</a>
         </div>
     </div>

@@ -83,9 +83,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // защищенные URL. То есть даём разрешение для конкретного url, конкретным ролям
                 // .antMatchers(Http.Method.GET, "/user").hasAnyRole(Role.ADMIN.name(), Role.USER.name())
-                .antMatchers("/admin/**")
+                .antMatchers("/api/admin/**", "/admin")
                 .hasAuthority("ADMIN")
-                .antMatchers("/user")
+                .antMatchers("/user", "api/user")
                 .hasAnyAuthority("USER", "ADMIN")
 
                 //страницы аутентификаци доступна всем
