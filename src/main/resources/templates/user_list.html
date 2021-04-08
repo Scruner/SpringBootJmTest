@@ -1,4 +1,4 @@
-<!Doctype html>
+<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       lang="en">
@@ -17,167 +17,186 @@
 
         <div class="col-10 vh-100" style="background-color: whitesmoke">
             <div class="container">
-                <br>
-                <div class="row">
-                    <div class="col">
-                        <h1>Admin panel</h1>
+
+                <div class="container">
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <h1>Admin panel</h1>
+                        </div>
                     </div>
-                </div>
+                    <nav>
+                        <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <li class="nav-item">
+                                <a href="#admin" class="nav-link active" data-toggle="tab"
+                                   role="tab" aria-selected="true">Users table</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#admin-add" class="nav-link" data-toggle="tab"
+                                   role="tab" aria-selected="false">New user</a>
+                            </li>
+                        </ul>
+                    </nav>
 
-                <nav>
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link tabb active" id="home-tab" data-toggle="tab"
-                               data-target="#home"
-                               type="button" role="tab" aria-controls="home" aria-selected="true">Users table</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link tabb text-primary" id="profile-tab" data-toggle="tab"
-                               data-target="#profile" type="button" role="tab" aria-controls="profile"
-                               aria-selected="false">New user</a>
-                        </li>
-                    </ul>
-                </nav>
+                    <div class="tab-content">
 
-                <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active admin" id="admin"
+                             aria-labelledby="admin">
 
-                    <div class="tab-pane fade show active admin" id="home" role="tabpanel"
-                         aria-labelledby="home-tab">
+                            <div class="card">
+                                <h5 class="card-header">All users</h5>
+                                <div class="card-body">
 
-                        <div class="card">
-                            <h5 class="card-header">All users</h5>
-                            <div class="card-body">
+                                    <div class="container">
 
-                                <div class="col" style="background-color: white">
+                                        <div class="col" style="background-color: white">
+                                            <br>
+                                            <table class="table table-striped border-top">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col">First Name</th>
+                                                    <th scope="col">Last Name</th>
+                                                    <th scope="col">Age</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Role</th>
+                                                    <th scope="col">Edit</th>
+                                                    <th scope="col">Delete</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="user : ${users}">
+                                                    <td th:text="${user.getId()}">...</td>
+                                                    <td th:text="${user.getName()}">...</td>
+                                                    <td th:text="${user.getSurname()}">...</td>
+                                                    <td th:text="${user.getAge()}">...</td>
+                                                    <td th:text="${user.getEmail()}">...</td>
+                                                    <td><span th:each="role : ${user.getRoles()}"
+                                                              th:text="${role.getRole() + ' '}"></span></td>
+
+                                                    <!--The Modal-->
+                                                    <div th:replace="fragments/modal-windows :: modalEdit"></div>
+
+
+                                                    <!--The Modal-->
+                                                    <div th:replace="fragments/modal-windows :: modalDelete"></div>
+
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade fluid" id="admin-add">
+                            <div class="card">
+                                <h5 class="card-header">Add new user</h5>
+                                <br>
+                                <div class="card-body-admin-add">
+
+                                    <form method="post" th:action="@{/admin/add}" th:object="${user}">
+                                        <div class="container">
+
+                                            <div class="row justify-content-center align-items-center form-row text-center">
+                                                <div class="col-4">
+
+                                                    <form role="form">
+
+                                                        <div class="form-group text-center">
+                                                            <a class="text" for="name">
+                                                                <a class="text font-weight-bold
+                                                                                                text-dark">
+                                                                    First name</a>
+                                                            </a>
+                                                            <input type="name"
+                                                                   class="form-control"
+                                                                   id="name"
+                                                                   name="name"
+                                                                   placeholder="First name">
+                                                        </div>
+                                                        <div class="form-group text-center">
+                                                            <a class="text" for="surname">
+                                                                <a class="text font-weight-bold
+                                                                                                text-dark">
+                                                                    Last name</a>
+                                                            </a>
+                                                            <input type="surname"
+                                                                   class="form-control"
+                                                                   id="surname"
+                                                                   name="surname"
+                                                                   placeholder="Last name">
+                                                        </div>
+                                                        <div class="form-group text-center">
+                                                            <a class="text" for="age">
+                                                                <a class="text font-weight-bold
+                                                                                                text-dark">
+                                                                    Age</a>
+                                                            </a>
+                                                            <input type="number"
+                                                                   class="form-control"
+                                                                   id="age"
+                                                                   name="age"
+                                                                   placeholder="Age">
+                                                        </div>
+                                                        <div class="form-group text-center">
+                                                            <a class="text" for="email">
+                                                                <a class="text font-weight-bold
+                                                                                                text-dark">
+                                                                    Email</a>
+                                                            </a>
+                                                            <input type="email"
+                                                                   class="form-control"
+                                                                   id="email"
+                                                                   name="email"
+                                                                   placeholder="Email">
+                                                        </div>
+                                                        <div class="form-group text-center">
+                                                            <a class="text" for="password">
+                                                                <a class="text font-weight-bold
+                                                                                                text-dark">
+                                                                    Password</a>
+                                                            </a>
+                                                            <input type="password"
+                                                                   class="form-control"
+                                                                   id="password"
+                                                                   name="password"
+                                                                   placeholder="Password">
+                                                        </div>
+                                                        <div class="form-group text-center">
+                                                            <a class="text" for="role">
+                                                                <a class="text font-weight-bold
+                                                                                                text-dark">
+                                                                    Role</a>
+                                                            </a>
+                                                            <select multiple size="2" id="roleSelects"
+                                                                    name="role"
+                                                                    class="form-control">
+                                                                <option value="ADMIN">ADMIN</option>
+                                                                <option value="USER">USER</option>
+                                                            </select>
+                                                        </div>
+                                                    </form>
+                                                    <a href="/admin/add">
+                                                        <button class="btn btn-success">Add new user</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </form>
                                     <br>
-                                    <table class="table table-striped border-top"
-                                           id="usersTable">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">First Name</th>
-                                            <th scope="col">Last Name</th>
-                                            <th scope="col">Age</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Role</th>
-                                            <th scope="col">Edit</th>
-                                            <th scope="col">Delete</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody class="usersBody">
-                                        </tbody>
-                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!--Users Table-->
-
-                    <div class="tab-pane fade fluid" id="profile" role="tabpanel"
-                         aria-labelledby="profile-tab">
-                        <div class="card">
-                            <h5 class="card-header">Add new user</h5>
-                            <br>
-                            <form method="post" id="addUserForm">
-                                <div class="row justify-content-center align-items-center form-row text-center">
-                                    <div class="col-4">
-
-                                        <form role="form">
-
-                                            <div class="form-group text-center">
-                                                <a for="newFirstName"
-                                                       class="text font-weight-bold text-dark">
-                                                    First name
-                                                </a>
-                                                <input type="text"
-                                                       class="form-control"
-                                                       id="newFirstName"
-                                                       placeholder="First name"
-                                                       name="firstName">
-                                            </div>
-                                            <div class="form-group text-center">
-                                                <a for="newLastName"
-                                                       class="text font-weight-bold text-dark">
-                                                    Last name
-                                                </a>
-                                                <input type="text"
-                                                       class="form-control"
-                                                       id="newLastName"
-                                                       placeholder="Last name"
-                                                       name="lastName">
-                                            </div>
-                                            <div class="form-group text-center">
-                                                <a for="newAge"
-                                                       class="text font-weight-bold text-dark">
-                                                    Age
-                                                </a>
-                                                <input type="number"
-                                                       class="form-control"
-                                                       id="newAge"
-                                                       placeholder="Age"
-                                                       name="age">
-                                            </div>
-                                            <div class="form-group text-center">
-                                                <a for="newEmail"
-                                                       class="text font-weight-bold text-dark">
-                                                    Email
-                                                </a>
-                                                <input type="email"
-                                                       class="form-control"
-                                                       id="newEmail"
-                                                       placeholder="Email"
-                                                       name="email">
-                                            </div>
-                                            <div class="form-group text-center">
-                                                <a for="newPassword"
-                                                       class="text font-weight-bold text-dark">
-                                                    Password
-                                                </a>
-                                                <input type="password"
-                                                       class="form-control"
-                                                       id="newPassword"
-                                                       placeholder="Password"
-                                                       name="password">
-                                            </div>
-                                            <div class="form-group text-center">
-                                                <a for="newUserRoles"
-                                                       class="text font-weight-bold text-dark">
-                                                    Role
-                                                </a>
-                                                <select multiple size="2" name="role_select"
-                                                        id="newUserRoles"
-                                                        class="form-control newUserRoles">
-                                                    <option value="1">ADMIN</option>
-                                                    <option value="2">USER</option>
-                                                </select>
-                                            </div>
-                                            <button type="button" class="btn btn-success"
-                                                    id="aBtn">
-                                                Add new user
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <br>
-                            </form>
-                            <br>
-                        </div>
-                    </div>
-
-                    <!--The Modal-->
-                    <div th:replace="fragments/modal-windows :: modalEdit"></div>
-
-
-                    <!--The Modal-->
-                    <div th:replace="fragments/modal-windows :: modalDelete"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div th:replace="fragments/scripts :: scripts"></div>
+<div th:replace="fragments/footer :: footer"></div>
 
 </body>
 </html>

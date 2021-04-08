@@ -1,5 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -30,7 +30,6 @@
     <div class="col-2 col px-md-0">
         <br>
         <div class="nav flex-column nav-pills" id="sidebarUserTable" role="tablist" aria-orientation="vertical">
-
             <a class="nav-link active" id="link-admin-tab" data-bs-toggle="pill" href="/admin" role="tab"
                aria-controls="v-pills-admin" aria-selected="true">Admin</a>
             <a class="nav-link" id="link-user-tab" data-bs-toggle="pill" href="/user" role="tab"
@@ -45,10 +44,9 @@
         <br>
         <div class="nav flex-column nav-pills" id="sidebarNewUser" role="tablist" aria-orientation="vertical">
 
-            <sec:authorize access="hasRole('ADMIN')">
-                <a class="nav-link" id="linkNewUser-admin-tab" data-bs-toggle="pill" href="/admin" role="tab"
+                <a sec:authorize="hasAuthority('ADMIN')" class="nav-link" id="linkNewUser-admin-tab"
+                   data-bs-toggle="pill" href="/admin" role="tab"
                    aria-controls="v-pills-admin" aria-selected="true">Admin</a>
-            </sec:authorize>
 
             <a class="nav-link active" id="linkNewUser-user-tab" data-bs-toggle="pill" href="/user" role="tab"
                aria-controls="v-pills-user" aria-selected="false">User</a>
