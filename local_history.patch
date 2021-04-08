@@ -1,0 +1,29 @@
+Index: src/main/java/ru/vdv/jm/spring_boot_jm/controllers/AdminController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/vdv/jm/spring_boot_jm/controllers/AdminController.java b/src/main/java/ru/vdv/jm/spring_boot_jm/controllers/AdminController.java
+--- a/src/main/java/ru/vdv/jm/spring_boot_jm/controllers/AdminController.java	(date 1617726249606)
++++ b/src/main/java/ru/vdv/jm/spring_boot_jm/controllers/AdminController.java	(date 1617726249606)
+@@ -23,12 +23,18 @@
+     }
+ 
+     @GetMapping
+-    public String getUsers(@ModelAttribute("user")
+-                                   User user, Model model, HttpTrace.Principal principal) {
++    public String getUsers(
++            @ModelAttribute("user")
++                    User user, Model model, HttpTrace.Principal principal) {
+         model.addAttribute("allUsers", userService.findAllUsers());
+         model.addAttribute("allRoles", userService.findAllRoles());
+         model.addAttribute("user", userService.findByEmail(principal.getName()));
+         return "user_list";
+     }
++
++    @GetMapping("/user")
++    public String getUser() {
++        return "user";
++    }
+ }
+ 
